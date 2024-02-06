@@ -1,5 +1,6 @@
 using CoreStartApp.Middlewares;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -13,6 +14,8 @@ if (env.IsDevelopment() || env.IsStaging())
 }
 
 app.UseRouting();
+
+app.UseStaticFiles();
 
 app.UseMiddleware<LoggingMiddleware>();
 
@@ -55,3 +58,17 @@ static void Config(IApplicationBuilder app)
         await context.Response.WriteAsync($"App name: {env.ApplicationName}. App running configuration: {env.EnvironmentName}");
     });
 }
+
+
+/// <summary>
+/// Статический метод, создающий и настраивающий IHostBuilder -
+/// объект, который в свою очередь создает хост для развертывания Core-приложения
+/// </summary>
+static IHostBuilder CreateHostBuilder(string[] args) =>
+   Host.CreateDefaultBuilder(args)
+       .ConfigureWebHostDefaults(webBuilder =>
+       {
+           webBuilder.UseStartup<StartupBase>();
+           // Переопределяем путь до статических файлов по умолчанию
+           //webBuilder.UseWebRoot("Views");
+       });

@@ -6,4 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Include="Logs\.gitkeep" />
+    <Content Include="Logs\RequestLog.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwRoot\index.html" />
+  </ItemGroup>
+
 </Project>
